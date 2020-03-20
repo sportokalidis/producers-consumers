@@ -9,11 +9,11 @@
 #include "prod_cons.h"
 
 
-// #define numOfFunctions 4
-// #define QUEUESIZE 10
-#define LOOP 150
-#define P 4
-#define Q 4
+#define numOfFunctions 10
+#define LOOP 10
+#define QUEUESIZE 30
+#define P 10
+#define Q 3
 
 
 
@@ -23,10 +23,13 @@ int main ()
   queue *fifo;
   pthread_t pro[P], con[Q];
 
-  functions[0] = sum; /* address of sum() */
-  functions[1] = subtract; /* address of subtract() */
-  functions[2] = mul; /* address of mul() */
-  functions[3] = dive; /* address of div() */
+  functions[0] = sum;       functions[5] = cosine;
+  functions[1] = subtract;  functions[6] = printfunc;
+  functions[2] = mul;       functions[7] = factorial;
+  functions[3] = division;  functions[8] = square_root;
+  functions[4] = sine;      functions[9] = even_odd_number;
+
+
 
   fifo = queueInit ();
   if (fifo ==  NULL) {
@@ -52,7 +55,7 @@ int main ()
   while(!fifo->empty){
     continue;
   }
-  usleep(1000000);
+  //usleep(10000000);
   // for(int i=0; i<Q; i++) {
   //   pthread_join (con[i], NULL);
   // }

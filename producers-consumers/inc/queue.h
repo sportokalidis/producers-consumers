@@ -1,14 +1,17 @@
 #ifndef QUEUE_H
 #define QUEUE_H
 
-#define QUEUESIZE 100
+#define numOfFunctions 10
+#define LOOP 10
+#define QUEUESIZE 30
+#define P 10
+#define Q 3
+
 
 typedef struct {
   void * (*work)(void *);
   void * arg;
   double remaining_time;
-
-  time_t tim;
 
 } workFunction;
 
