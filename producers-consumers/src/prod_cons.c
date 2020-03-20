@@ -1,12 +1,18 @@
 /*
-*
-*
-*
-*
-*
-*
-*
-*
+ *	File	: pc.c
+ *
+ *	Title	: Demo Producer/Consumer.
+ *
+ *	Short	: A solution to the producer consumer problem using
+ *		pthreads.
+ *
+ *	Long 	:
+ *
+ *	Author	: Andrae Muys
+ *
+ *	Date	: 18 September 1997
+ *
+ *	Revised	:
  */
 
 #include <pthread.h>
@@ -20,14 +26,14 @@
 #include "prod_cons.h"
 
 
-#define QUEUESIZE 10
-#define LOOP 20
-
-#define P 500
-#define Q 5
 #define numOfFunctions 4
+#define QUEUESIZE 10
+#define LOOP 2
+#define P 2
+#define Q 2
 
 int counter = 0;
+int remaining_time_counter=0;
 int flag=0;
 
 workFunction wf ;
@@ -64,8 +70,8 @@ void *producer (void *q)
     printf("\n\nproducer: FINISH !!!\n\n\n");
     flag = 1;
     //usleep(5000000);
-    pthread_cond_broadcast(fifo->notEmpty);
-    pthread_mutex_unlock (fifo->mut);
+    //pthread_cond_broadcast(fifo->notEmpty);
+    //pthread_mutex_unlock (fifo->mut);
   }
   return (NULL);
 }
@@ -93,7 +99,9 @@ void *consumer (void *q)
     }
 
     queueDel (fifo, &wf);
-    wf.work(wf.arg);
+    remaining_time_counter++;
+    printf("%d. remaining_time: %lf\n", remaining_time_counter, wf.remaining_time);
+    //wf.work(wf.arg);
     // printf ("consumer: recieved %d.\n", d);
     pthread_mutex_unlock (fifo->mut);
     pthread_cond_signal (fifo->notFull);

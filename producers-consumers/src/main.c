@@ -8,11 +8,12 @@
 #include "functions.h"
 #include "prod_cons.h"
 
+
+#define numOfFunctions 4
 #define QUEUESIZE 10
 #define LOOP 2
-
-#define P 10
-#define Q 5
+#define P 2
+#define Q 2
 
 
 
@@ -34,20 +35,20 @@ int main ()
   }
 
   for(int i=0; i<Q; i++) {
-    pthread_create (&con[i], NULL, consumer, fifo);
+    int k = pthread_create (&con[i], NULL, consumer, fifo);
   }
 
   for(int i=0; i<P; i++) {
-    pthread_create (&pro[i], NULL, producer, fifo);
+    int k = pthread_create (&pro[i], NULL, producer, fifo);
+    printf("k: %d,    i: %d\n",k,i);
   }
 
 
 
   for(int i=0; i<P; i++) {
-    //printf("join\n");
     pthread_join (pro[i], NULL);
   }
-
+  //usleep(2000000);
   while(!fifo->empty){
     continue;
   }

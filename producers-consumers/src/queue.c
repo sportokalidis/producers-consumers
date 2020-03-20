@@ -47,12 +47,15 @@ void queueDelete (queue *q)
 void queueAdd (queue *q, workFunction in)
 {
   q->buf[q->tail] = in;
+  q->remaining_time[q->tail] = clock();
+
   q->tail++;
   if (q->tail == QUEUESIZE)
     q->tail = 0;
   if (q->tail == q->head)
     q->full = 1;
   q->empty = 0;
+
 
   return;
 }
@@ -62,6 +65,9 @@ void queueAdd (queue *q, workFunction in)
 void queueDel (queue *q, workFunction *out)
 {
   *out = q->buf[q->head];
+
+  clock_t time = clock();
+  out->remaining_time = (double) (time - q->remaining_time[q->head]) / CLOCKS_PER_SEC;
 
   q->head++;
   if (q->head == QUEUESIZE)
