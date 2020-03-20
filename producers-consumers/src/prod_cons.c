@@ -1,18 +1,12 @@
 /*
- *	File	: pc.c
- *
- *	Title	: Demo Producer/Consumer.
- *
- *	Short	: A solution to the producer consumer problem using
- *		pthreads.
- *
- *	Long 	:
- *
- *	Author	: Andrae Muys
- *
- *	Date	: 18 September 1997
- *
- *	Revised	:
+*
+*
+*
+*
+*
+*
+*
+*
  */
 
 #include <pthread.h>
