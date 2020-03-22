@@ -26,9 +26,9 @@
 #define P 10
 #define Q 3
 
-// int counter = 0;
+int counter = 0;
 int remaining_time_counter=0;
-// int flag=0;
+int flag=0;
 
 workFunction wf ;
 int argu=0;
@@ -42,7 +42,6 @@ void *producer (void *q)
   queue *fifo;
 
   fifo = (queue *)q;
-
   srand(time(NULL));
 
   for (int i = 0; i < LOOP; i++) {
@@ -60,17 +59,17 @@ void *producer (void *q)
     queueAdd (fifo, wf);
     pthread_mutex_unlock (fifo->mut);
     pthread_cond_signal (fifo->notEmpty);
-    //usleep (100000);
+
   }
 
-  // counter++;
-  // if(counter == P) {
-  //   printf("\n\nproducer: FINISH !!!\n\n\n");
-  //   flag = 1;
-  //   //usleep(5000000);
-  //   //pthread_cond_broadcast(fifo->notEmpty);
-  //   //pthread_mutex_unlock (fifo->mut);
-  // }
+  counter++;
+  if(counter == P) {
+    printf("\n\nproducer: FINISH !!!\n\n\n");
+    flag = 1;
+
+    usleep(1000000);
+    pthread_cond_broadcast(fifo->notEmpty);
+  }
   return (NULL);
 }
 
@@ -81,42 +80,39 @@ void *consumer (void *q)
   fifo = (queue *)q;
 
   while (1){
-
     pthread_mutex_lock (fifo->mut);
-    while(fifo->empty==1) {
+
+    while(fifo->empty==1 && flag != 1) {
       printf ("consumer: queue EMPTY.\n");
-      // if(flag == 1 && fifo->empty==1) {
-      //   return (NULL);
-      // }
+
       pthread_cond_wait (fifo->notEmpty, fifo->mut);
     }
 
 
-    // if(flag == 1 && fifo->empty==1) {
-    //   return (NULL);
-    // }
+    if(flag == 1 && fifo->empty==1) {
+      pthread_mutex_unlock (fifo->mut);
+      break;
+    }
 
     queueDel (fifo, &wf);
 
-    fptr = fopen("remaining_time.csv","a+");
-    if(fptr == NULL)
-    {
-      printf("Error!");
-      exit(1);
-    }
-    fprintf(fptr,"%lf\n", wf.remaining_time);
-    fclose(fptr);
+    // fptr = fopen("remaining_time.csv","a+");
+    // if(fptr == NULL)
+    // {
+    //   printf("Error!");
+    //   exit(1);
+    // }
+    // fprintf(fptr,"%lf\n", wf.remaining_time);
+    // fclose(fptr);
 
     remaining_time_counter++;
     printf("%d. remaining_time: %lf\n", remaining_time_counter, wf.remaining_time);
 
-    // pthread_t workthread;
-    // pthread_create(&workthread, NULL, wf.work, wf.arg);
     wf.work(wf.arg);
 
     pthread_mutex_unlock (fifo->mut);
     pthread_cond_signal (fifo->notFull);
-    //pthread_join(workthread, NULL);
+
   }
 
   return (NULL);
