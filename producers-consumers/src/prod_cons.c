@@ -67,7 +67,7 @@ void *producer (void *q)
     printf("\n\nproducer: FINISH !!!\n\n\n");
     flag = 1;
 
-    usleep(1000000);
+    // usleep(1000000);
     pthread_cond_broadcast(fifo->notEmpty);
   }
   return (NULL);
@@ -91,6 +91,7 @@ void *consumer (void *q)
 
     if(flag == 1 && fifo->empty==1) {
       pthread_mutex_unlock (fifo->mut);
+      pthread_cond_broadcast(fifo->notEmpty);
       break;
     }
 
