@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -O3 -g -Wall -std=c99 -std=gnu99 -pthread -lm
+CFLAGS = -O3 -g -Wall -std=c99 -std=gnu99 -lpthread -lm
 SDIR = ./src
 LDIR = ./lib
 IDIR = ./inc
@@ -7,10 +7,10 @@ INCLUDES = -I$(IDIR)
 LIBRARIES = -L$(LDIR)
 EXE = $(SDIR)/exec
 LIBS = $(LDIR)/$(MAIN).a
-MAIN=main
+MAIN=prod_cons
+CLEAN = clean
 
-
-all:	$(EXE)
+all: $(CLEAN)	$(EXE)
 
 lib: $(LIBS)
 
@@ -25,7 +25,7 @@ $(LDIR)/%.a: $(SDIR)/%.o $(SDIR)/functions.o $(SDIR)/queue.o $(SDIR)/prod_cons.o
 
 
 
-$(SDIR)/main.o: $(SDIR)/$(MAIN).c
+$(SDIR)/$(MAIN).o: $(SDIR)/$(MAIN).c
 	$(CC) $(INCLUDES) -o $@ -c $^
 
 $(SDIR)/functions.o: $(SDIR)/functions.c
@@ -34,8 +34,8 @@ $(SDIR)/functions.o: $(SDIR)/functions.c
 $(SDIR)/queue.o: $(SDIR)/queue.c
 	$(CC) $(INCLUDES) -o $@ -c $^
 
-$(SDIR)/prod_cons.o: $(SDIR)/prod_cons.c
-	$(CC) $(INCLUDES) -o $@ -c $^
+# $(SDIR)/prod_cons.o: $(SDIR)/prod_cons.c
+# 	$(CC) $(INCLUDES) -o $@ -c $^
 
 
 clean:

@@ -17,14 +17,13 @@
 
 #include "queue.h"
 #include "functions.h"
-#include "prod_cons.h"
+
 
 
 #define numOfFunctions 10
-#define LOOP 10
-#define QUEUESIZE 30
-#define P 10
-#define Q 3
+#define LOOP 300000
+#define P 4
+#define Q 1
 
 int counter = 0;
 int remaining_time_counter=0;
@@ -42,12 +41,13 @@ void *producer (void *q)
   queue *fifo;
 
   fifo = (queue *)q;
+
   srand(time(NULL));
 
   for (int i = 0; i < LOOP; i++) {
     pthread_mutex_lock (fifo->mut);
     while (fifo->full) {
-      printf ("producer: queue FULL.\n");
+      // printf ("producer: queue FULL.\n");
       pthread_cond_wait (fifo->notFull, fifo->mut);
     }
 
@@ -64,7 +64,7 @@ void *producer (void *q)
 
   counter++;
   if(counter == P) {
-    printf("\n\nproducer: FINISH !!!\n\n\n");
+    // printf("\n\nproducer: FINISH !!!\n\n\n");
     flag = 1;
 
     // usleep(1000000);
@@ -79,11 +79,13 @@ void *consumer (void *q)
 
   fifo = (queue *)q;
 
+  // printf("threadid:  %ld\n", pthread_self());
+
   while (1){
     pthread_mutex_lock (fifo->mut);
 
     while(fifo->empty==1 && flag != 1) {
-      printf ("consumer: queue EMPTY.\n");
+      // printf ("consumer: queue EMPTY.\n");
 
       pthread_cond_wait (fifo->notEmpty, fifo->mut);
     }
@@ -97,24 +99,66 @@ void *consumer (void *q)
 
     queueDel (fifo, &wf);
 
-    // fptr = fopen("remaining_time.csv","a+");
-    // if(fptr == NULL)
-    // {
-    //   printf("Error!");
-    //   exit(1);
-    // }
-    // fprintf(fptr,"%lf\n", wf.remaining_time);
-    // fclose(fptr);
+
 
     remaining_time_counter++;
-    printf("%d. remaining_time: %lf\n", remaining_time_counter, wf.remaining_time);
+    // printf("%d. remaining_time: %lf\n", remaining_time_counter, wf.remaining_time);
+    printf("%lf\n", wf.remaining_time);
 
-    wf.work(wf.arg);
+
+
 
     pthread_mutex_unlock (fifo->mut);
     pthread_cond_signal (fifo->notFull);
-
+    wf.work(wf.arg);
   }
 
   return (NULL);
+}
+
+
+
+int main ()
+{
+  queue *fifo;
+  pthread_t pro[P], con[Q];
+
+  functions[0] = sum;       functions[5] = cosine;
+  functions[1] = subtract;  functions[6] = printfunc;
+  functions[2] = mul;       functions[7] = factorial;
+  functions[3] = division;  functions[8] = square_root;
+  functions[4] = sine;      functions[9] = even_odd_number;
+
+
+
+  fifo = queueInit ();
+  if (fifo ==  NULL) {
+    fprintf (stderr, "main: Queue Init failed.\n");
+    exit (1);
+  }
+
+  printf("remaining_time,\n");
+  for(int i=0; i<Q; i++) {
+    pthread_create (&con[i], NULL, consumer, fifo);
+  }
+
+  for(int i=0; i<P; i++) {
+    pthread_create (&pro[i], NULL, producer, fifo);
+  }
+
+
+
+  for(int i=0; i<P; i++) {
+    pthread_join (pro[i], NULL);
+  }
+
+
+  for(int i=0; i<Q; i++) {
+    pthread_join (con[i], NULL);
+  }
+
+
+  queueDelete (fifo);
+
+  return 0;
 }

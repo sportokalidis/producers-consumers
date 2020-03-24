@@ -10,11 +10,10 @@
 
 
 #define numOfFunctions 10
-#define LOOP 10
-#define QUEUESIZE 30
-#define P 10
-#define Q 3
-
+#define LOOP 300000
+#define QUEUESIZE 20000
+#define P 4
+#define Q 4
 
 
 
@@ -37,6 +36,7 @@ int main ()
     exit (1);
   }
 
+  printf("remaining_time,\n");
   for(int i=0; i<Q; i++) {
     pthread_create (&con[i], NULL, consumer, fifo);
   }
@@ -51,14 +51,10 @@ int main ()
     pthread_join (pro[i], NULL);
   }
 
-  usleep(1000000);
-  while(!fifo->empty){
-    continue;
+
+  for(int i=0; i<Q; i++) {
+    pthread_join (con[i], NULL);
   }
-  //usleep(10000000);
-  // for(int i=0; i<Q; i++) {
-  //   pthread_join (con[i], NULL);
-  // }
 
 
   queueDelete (fifo);

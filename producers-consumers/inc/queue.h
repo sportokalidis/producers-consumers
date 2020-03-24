@@ -1,11 +1,8 @@
 #ifndef QUEUE_H
 #define QUEUE_H
 
-#define numOfFunctions 10
-#define LOOP 10
-#define QUEUESIZE 30
-#define P 10
-#define Q 3
+
+#define QUEUESIZE 20000
 
 
 typedef struct {

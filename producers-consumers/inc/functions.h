@@ -1,6 +1,11 @@
 #ifndef FUNCTIONS_H
 #define FUNCTIONS_H
 
+#define numOfFunctions 10
+
+
+void * (*functions[numOfFunctions]) (void * x);
+
 
 
 void *sum(void *a);
