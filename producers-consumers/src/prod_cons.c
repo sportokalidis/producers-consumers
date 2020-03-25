@@ -128,9 +128,6 @@ void *consumer (void *q)
 
 int main (int argc, char* argv[])
 {
-
-
-
   queue *fifo;
   pthread_t pro[P], con[Q];
 
