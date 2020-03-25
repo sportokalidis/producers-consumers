@@ -26,16 +26,14 @@ $(LDIR)/%.a: $(SDIR)/%.o $(SDIR)/functions.o $(SDIR)/queue.o $(SDIR)/prod_cons.o
 
 
 $(SDIR)/$(MAIN).o: $(SDIR)/$(MAIN).c
-	$(CC) $(INCLUDES) -o $@ -c $^
+	$(CC) $(CFLAGS) $(INCLUDES) -o $@ -c $^
 
 $(SDIR)/functions.o: $(SDIR)/functions.c
-	$(CC) $(INCLUDES) -o $@ -c $^
+	$(CC) $(CFLAGS) $(INCLUDES) -o $@ -c $^
 
 $(SDIR)/queue.o: $(SDIR)/queue.c
-	$(CC) $(INCLUDES) -o $@ -c $^
+	$(CC) $(CFLAGS) $(INCLUDES) -o $@ -c $^
 
-# $(SDIR)/prod_cons.o: $(SDIR)/prod_cons.c
-# 	$(CC) $(INCLUDES) -o $@ -c $^
 
 
 clean:
