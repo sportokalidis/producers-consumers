@@ -1,19 +1,37 @@
 # REAL TIME EMBEDDED SYSTEMS
 ## First Assignment: Implementation of Producers – Consumers Problem
-Author: Portokalidis Stavros,  A.E.M.: 9334,  email: stavport@ece.auth.gr <br/> <br/>
+Author: Portokalidis Stavros,  email: stavport@ece.auth.gr <br/> <br/>
 
- ***Problem Description*** <br/>
+### _Problem Description_ <br/>
 The “Producers - Consumers’’ is a well-know programming problem. On the one hand, we have the producers, who add objects in queue , and on the other hand there are consumers, who delete the objects from this queue. In this assignment, we are called to implement a parallel version of this problem. We have “p’’ producer threads and “q” consumer threads , who add and remove workFunction objects from queue buffer, respectively. WorkFunction objects include a function pointer and  the arguments of this function. Consumers, when, remove an object from the queue buffer, must run this function. The target of this assignment is to take some statistics from remaining time of objects in the queue and find the suitable number of consumers that minimize the average remaining time. <br/> <br/>
 
 ---
 
- ***Project and Code Explanation*** <br/>
+### _Project Explanation and Running_ <br/>
 This project follow the structure: <br/>
 	producers-consumers/ <br/>
 	 |--- Makefile <br/>
 	 |--- lib/ <br/>
 	 |--- inc/ <br/>
 	 |--- src/ <br/>
+
+To _Build_ the project: <br/>
+```shell
+$ make all
+
+```
+<br/>
+
+To _Run_ the code: <br/>
+```shell
+$ ./src/exec
+```
+
+<br/>
+
+
+### _Code Explanation_  <br/>
+
 
 **functions.c:** The implementation of functions.<br/>
 **queue.c:** Definition of queue type and the implementation of queue functions. <br/>
@@ -32,5 +50,6 @@ Then, the consumer, who delete this object from the queue, take the time that mo
 
 ---
 
- ***Hardware*** <br/>
-4 x Intel Core i7-7500 CPU  2,70 GHz
+### _Graphs and Results_ <br/>
+
+
