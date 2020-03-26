@@ -21,9 +21,9 @@
 
 
 #define NUM_OF_FUNCTIONS 10    // Number of functions that we will use
-#define LOOP 300               // The number of objects that a producer add to queue's buffer
+#define LOOP 300000               // The number of objects that a producer add to queue's buffer
 #define P 4                    // Number of producers
-#define Q 1                    // Number of consumers
+#define Q 500                   // Number of consumers
 
 int counter = 0;               // counter: count the number of producer's threads that finish
 int remaining_time_counter=0;  //
@@ -52,7 +52,7 @@ void *producer (void *q)
   for (int i = 0; i < LOOP; i++) {
     pthread_mutex_lock (fifo->mut); // Until the producer's thread add the object, the queue is block
     while (fifo->full) {
-      printf ("producer: queue FULL.\n");
+      // printf ("producer: queue FULL.\n");
       pthread_cond_wait (fifo->notFull, fifo->mut); // if the queue is full, the thread wait here, until a consumer's thread delete an object
     }
 
@@ -95,7 +95,7 @@ void *consumer (void *q)
     pthread_mutex_lock (fifo->mut);
 
     while(fifo->empty==1 && flag != 1) {
-      printf ("consumer: queue EMPTY.\n");
+      // printf ("consumer: queue EMPTY.\n");
 
       pthread_cond_wait (fifo->notEmpty, fifo->mut);
     }
@@ -113,8 +113,11 @@ void *consumer (void *q)
     queueDel (fifo, &wf);
 
     remaining_time_counter++;
-    printf("\n%d. remaining_time: %lf\n", remaining_time_counter, wf.remaining_time);
-    printf("%lf\n", wf.remaining_time);
+    // printf("\n%d. remaining_time: %lf\n", remaining_time_counter, wf.remaining_time); // Using clock() funtion to take remaining time
+    // printf("%lf\n", wf.remaining_time);
+
+    // printf("\n%d. remaining_time: %ld\n", remaining_time_counter, wf.remaining_time); // Using gettimeofday() to take remaining time
+    printf("%lf\n", (double)wf.remaining_time*10e-7);
 
     pthread_mutex_unlock (fifo->mut);
     pthread_cond_signal (fifo->notFull);
@@ -128,6 +131,9 @@ void *consumer (void *q)
 
 int main (int argc, char* argv[])
 {
+
+
+
   queue *fifo;
   pthread_t pro[P], con[Q];
 

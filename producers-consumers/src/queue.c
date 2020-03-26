@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <time.h>
+#include <sys/time.h>
 
 #include "queue.h"
 
@@ -48,7 +49,10 @@ void queueDelete (queue *q)
 void queueAdd (queue *q, workFunction in)
 {
   q->buf[q->tail] = in;
-  q->arriving_time[q->tail] = clock();
+  struct timeval tv;
+  gettimeofday(&tv, NULL);
+  q->arriving_time[q->tail] = tv;
+  // q->arriving_time[q->tail] = clock();
 
   q->tail++;
   if (q->tail == QUEUESIZE)
@@ -67,8 +71,12 @@ void queueDel (queue *q, workFunction *out)
 {
   *out = q->buf[q->head];
 
-  clock_t time = clock();
-  out->remaining_time = (double) (time - q->arriving_time[q->head]) / CLOCKS_PER_SEC;
+  // clock_t time = clock();
+  // out->remaining_time = (double) (time - q->arriving_time[q->head]) / CLOCKS_PER_SEC;
+  struct timeval tv;
+  gettimeofday(&tv, NULL);
+  long time = (long) (tv.tv_sec *1000000);
+  out->remaining_time = (long) (time - q->arriving_time[q->head].tv_sec*1000000) + tv.tv_usec - q->arriving_time[q->head].tv_usec;
 
   q->head++;
   if (q->head == QUEUESIZE)

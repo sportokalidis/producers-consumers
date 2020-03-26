@@ -2,7 +2,7 @@
 #define QUEUE_H
 
 
-#define QUEUESIZE 5000000
+#define QUEUESIZE 20000
 
 /*
  * Type definition of function which add and delete in Queue
@@ -15,7 +15,7 @@
 typedef struct {
   void * (*work)(void *);
   void * arg;
-  double remaining_time;
+  long remaining_time;
 
 } workFunction;
 
@@ -36,7 +36,7 @@ typedef struct {
   pthread_mutex_t *mut;
   pthread_cond_t *notFull, *notEmpty;
 
-  clock_t arriving_time[QUEUESIZE];
+  struct timeval arriving_time[QUEUESIZE];
 
 } queue;
 
