@@ -1,19 +1,15 @@
 /*
  *	File	: functions.h
  *
- *	Title	:
+ *	Title	: Header file of functions
  *
- *	Short	: A solution to the producer consumer problem using
- *		pthreads.
- *
- *	Long 	:
  *
  *	Author	: Portokalidis Stavros
  *
- *	Date	: 29 March 2020
+ *	Date	: 25 March 2020
  *
- *	Revised	:
  */
+
 
 
 #ifndef FUNCTIONS_H

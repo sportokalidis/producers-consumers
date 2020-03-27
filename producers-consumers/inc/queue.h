@@ -1,8 +1,22 @@
+/*
+ *	File	: queue.h
+ *
+ *	Title	: Header file of queue
+ *
+ *
+ *	Author	: Portokalidis Stavros
+ *
+ *	Date	: 25 March 2020
+ *
+ */
+
+
+
 #ifndef QUEUE_H
 #define QUEUE_H
 
 
-#define QUEUESIZE 20000
+#define QUEUESIZE 600000
 
 /*
  * Type definition of function which add and delete in Queue
