@@ -1,3 +1,19 @@
+'''
+
+ 	File	: result.py
+
+ 	Title	: Print the average remaining time
+
+ 	Short	: Python script, take the data from file remaining_time.read_csv
+              using pandas module.
+              Calculate the average remaining time
+
+ 	Author	: Portokalidis Stavros
+
+ 	Date	: 25 March 2020
+
+'''
+
 import pandas as pd
 import sys
 
