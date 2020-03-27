@@ -1,12 +1,16 @@
 /*
-*
-*
-*
-*
-*
-*
-*
-*/
+ *	File	: prod_cons.c
+ *
+ *	Title	: Implementations of producers and consumers functions
+ *
+ *	Short	: A solution to the producer consumer problem using pthreads.
+ *
+ *
+ *	Author	: Portokalidis Stavros
+ *
+ *	Date	: 25 March 2020
+ *
+ */
 
 #include <pthread.h>
 #include <stdio.h>
@@ -21,9 +25,9 @@
 
 
 #define NUM_OF_FUNCTIONS 10    // Number of functions that we will use
-#define LOOP 300000               // The number of objects that a producer add to queue's buffer
+#define LOOP 300000            // The number of objects that a producer add to queue's buffer
 #define P 4                    // Number of producers
-#define Q 500                   // Number of consumers
+#define Q 1                  // Number of consumers
 
 int counter = 0;               // counter: count the number of producer's threads that finish
 int remaining_time_counter=0;  //
@@ -32,7 +36,9 @@ int flag=0;                    // flag that inform us if all producer's threads 
 
 #define NUM_OF_ARGS 30
 // Array with possible workFunctions args
-int arguments[NUM_OF_ARGS] = {2, 3, 4, 5, 7, 8, 10, 11, 13, 14, 16, 18, 21, 22, 24, 26, 28, 31, 32, 35, 40, 45, 50, 60, 70, 80, 85, 90, 95, 100};
+int arguments[NUM_OF_ARGS] = { 2, 3, 4, 5, 7, 8, 10, 11, 13, 14, 16, 18,
+                               21, 22, 24, 26, 28, 31, 32, 35, 40,
+                               45, 50, 60, 70, 80, 85, 90, 95, 100 };
 
 
 
@@ -96,7 +102,6 @@ void *consumer (void *q)
 
     while(fifo->empty==1 && flag != 1) {
       // printf ("consumer: queue EMPTY.\n");
-
       pthread_cond_wait (fifo->notEmpty, fifo->mut);
     }
 
@@ -117,11 +122,11 @@ void *consumer (void *q)
     // printf("%lf\n", wf.remaining_time);
 
     // printf("\n%d. remaining_time: %ld\n", remaining_time_counter, wf.remaining_time); // Using gettimeofday() to take remaining time
-    printf("%lf\n", (double)wf.remaining_time*10e-7);
+    printf("%ld\n", wf.remaining_time);
 
+    wf.work(wf.arg);
     pthread_mutex_unlock (fifo->mut);
     pthread_cond_signal (fifo->notFull);
-    wf.work(wf.arg);
   }
 
   return (NULL);
@@ -131,9 +136,6 @@ void *consumer (void *q)
 
 int main (int argc, char* argv[])
 {
-
-
-
   queue *fifo;
   pthread_t pro[P], con[Q];
 
@@ -143,7 +145,6 @@ int main (int argc, char* argv[])
   functions[2] = mul;       functions[7] = factorial;
   functions[3] = division;  functions[8] = square_root;
   functions[4] = sine;      functions[9] = even_odd_number;
-
 
 
   fifo = queueInit ();

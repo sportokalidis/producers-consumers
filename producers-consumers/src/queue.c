@@ -1,3 +1,16 @@
+/*
+ *	File	: queue.c
+ *
+ *	Title	: Implementations of queue
+ *
+ *
+ *	Author	: Portokalidis Stavros
+ *
+ *	Date	: 25 March 2020
+ *
+ */
+
+
 #include <stdio.h>
 #include <pthread.h>
 #include <unistd.h>
