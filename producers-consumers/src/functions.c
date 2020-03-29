@@ -13,6 +13,7 @@
 
 #include <stdio.h>
 #include <time.h>
+#include <sys/time.h>
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -24,6 +25,7 @@ void * sum(void * a){
   int c = num + num  ;
   printf("Function[0] -->  sum: %d + %d = %d \n",num,num,c);
 
+  usleep(100);
 
   return (NULL);
 }
@@ -33,8 +35,9 @@ void * subtract(void *  a){
   int num = *(int *)a;
   int c = num - 5  ;
   printf("Function[1] -->  sub: %d - 5 = %d \n",num, c);
-
-
+  
+   usleep(100);
+  
   return (NULL);
 }
 
@@ -45,6 +48,8 @@ void * mul(void * a){
 
   printf("Function[2] -->  mul: %d * %d = %d \n",num,num, c);
 
+  usleep(100);
+  
   return (NULL);
 }
 
@@ -60,7 +65,7 @@ void * division(void * a){
     printf("Function[3] -->  Divsion with '0'\n");
   }
 
-
+  usleep(100);
 
   return (NULL);
 }
@@ -73,7 +78,7 @@ void *sine(void *a) {
   double result = sin(pi/c);
   printf("Function[4] -->  sin(pi / %d) = %lf\n", (int)c, result);
 
-
+  usleep(100);
 
   return (NULL);
 }
@@ -86,7 +91,8 @@ void *cosine(void *a) {
   double result = cos(pi/c);
   printf("Function[5] -->  cos(pi/%d) = %lf\n", (int)c, result);
 
-
+  usleep(100);
+  
   return (NULL);
 }
 
@@ -94,6 +100,8 @@ void *cosine(void *a) {
 void *printfunc(void *a) {
   printf("Function[6] -->  Hello from printfunc function\n");
 
+  usleep(100);
+  
   return (NULL);
 }
 
@@ -119,6 +127,7 @@ void *factorial(void *a) {
     printf("Function[7] -->  %d: Too Big number, I can't calculate factorials > 20\n", c);
   }
 
+  usleep(100);
 
   return (NULL);
 }
@@ -136,7 +145,8 @@ void *square_root(void *a) {
     printf("Function[8] -->  %d is negative number !!\n", c);
   }
 
-
+  usleep(100);
+  
   return(NULL);
 }
 
@@ -151,6 +161,7 @@ void *even_odd_number(void *a) {
     printf("Function[9] -->  %d is odd number\n", c);
   }
 
+  usleep(100);
 
   return (NULL);
 }
