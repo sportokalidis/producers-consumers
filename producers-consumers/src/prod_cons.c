@@ -123,10 +123,10 @@ void *consumer (void *q)
 
     // printf("\n%d. remaining_time: %ld\n", remaining_time_counter, wf.remaining_time); // Using gettimeofday() to take remaining time
     printf("%ld\n", wf.remaining_time);
-
-    wf.work(wf.arg);
+   
     pthread_mutex_unlock (fifo->mut);
     pthread_cond_signal (fifo->notFull);
+    wf.work(wf.arg);
   }
 
   return (NULL);
