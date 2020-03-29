@@ -44,7 +44,7 @@ Finally, wait all threads to return and close the program. <br/>
      
 **consumer():** Every thread in consumer function run a while(1) loop. While a thread delete an object from queue, the queue is locked. The while(1) loop break when the queue is empty and all producer have already finished. <br/> 
 
-**To calculate remaining time:**  <br/>
+**Calculation of remaining time:**  <br/>
 When a producer add an object in queue, take the time in this moment using gettimeofday() and save it in  a timeval array named arriving_time[] in tail position.
 Then, the consumer, who delete this object from the queue, take the time that moment and save the result of subtraction, which is the remaining time of this object inside the queue. 
 
