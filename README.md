@@ -52,4 +52,9 @@ When, the consumer deletes this object from the queue, take the time at this mom
 
 ### _Graphs and Results_ <br/>
 
+***1st part of statistics:*** In this part, Queue size and number of producers are constant. <br/>
+* I) Queue_size = 1,000 and P = 4 <br/>
+* II) Queue_size = 5,000 and P = 4 <br/>
+* III) Queue_size = 20,000 and P = 4  <br/>
+
 
