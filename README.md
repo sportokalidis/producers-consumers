@@ -61,3 +61,10 @@ When, the consumer deletes this object from the queue, take the time at this mom
 <img src=producers-consumers/images/size5000.png width=900 height=450/> <br/>
 <img src=producers-consumers/images/size20000.png width=900 height=450/> <br/>
 
+
+In conclusion, we understand that, for LOOPS > 150,000 there are a relative stabilization of remaining time and the values tend to be close to the mean value. In addition, is important to notice that the Queue size play an important role when the number of consumers is small and on the other hand is not important when the number of consumers are larger (> number of producer). This is an expected result, because when the number of consumers threads increases, the output rate increases, and the input rate is constant.
+
+
+
+
+
