@@ -64,7 +64,14 @@ When, the consumer deletes this object from the queue, take the time at this mom
 
 In conclusion, we understand that, for LOOPS > 150,000 there are a relative stabilization of remaining time and the values tend to be close to the mean value. In addition, is important to notice that the Queue size play an important role when the number of consumers is small and on the other hand is not important when the number of consumers are larger (> number of producer). This is an expected result, because when the number of consumers threads increases, the output rate increases, and the input rate is constant.
 
+<br/> <br/>
 
+***2nd part of statistics:***  In this part, Queue size, number of producers and loops are constant. We choose loop number 500,000 in order to take more reliable results. Now, we change the number of consumers in order to find the suitable number of treads which minimize the remaining time. <br/>
 
+<img src=producers-consumers/images/bars.png width=900 height=450/> <br/>
 
+In conclusion, we notice that at this system the number of consumers that optimize the remaining time is 64. However, this number change from system to system. For example, if we use only one producer, the number of consumers that optimize the system it will be less than 64, because the input rate of objects in queue decreases. In addition, a system that use a larger number of consumers, it has the possibility to use a smaller queue buffer to save the objects, as we notice from the 1st part. 
 
+<br/>
+
+---
