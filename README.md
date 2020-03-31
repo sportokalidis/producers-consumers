@@ -57,4 +57,7 @@ When, the consumer deletes this object from the queue, take the time at this mom
 * II) Queue_size = 5,000 and P = 4 <br/>
 * III) Queue_size = 20,000 and P = 4  <br/>
 
+<img src=producers-consumers/images/size1000.png width=900 height=450/> <br/>
+<img src=producers-consumers/images/size5000.png width=900 height=450/> <br/>
+<img src=producers-consumers/images/size20000.png width=900 height=450/> <br/>
 
