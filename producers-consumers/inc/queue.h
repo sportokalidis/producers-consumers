@@ -16,7 +16,7 @@
 #define QUEUE_H
 
 
-#define QUEUESIZE 600000
+#define QUEUESIZE 60
 
 /*
  * Type definition of function which add and delete in Queue
